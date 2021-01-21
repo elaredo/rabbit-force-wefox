@@ -24,7 +24,7 @@ LOGGER = logging.getLogger(__name__)
 
 
 async def create_salesforce_org(*, name, consumer_key, consumer_secret,
-                                username, password, streaming_resource_specs,
+                                username, password,sandbox, streaming_resource_specs,
                                 loop=None):
     """Create and initialize a Salesforce org with the specified streaming
     resources
@@ -36,6 +36,7 @@ async def create_salesforce_org(*, name, consumer_key, consumer_secret,
     connected app definition
     :param str username: Salesforce username
     :param str password: Salesforce password
+    :param bool sandbox: if Salesforce is a sandbox
     :param list[dict] streaming_resource_specs: List of resource \
     specifications that can be passed to \
     :meth:`~rabbit_force.salesforce.org.SalesforceOrg.add_resource`
@@ -50,7 +51,7 @@ async def create_salesforce_org(*, name, consumer_key, consumer_secret,
 
     # create the Salesforce org
     LOGGER.debug("Creating Salesforce org %r", name)
-    org = SalesforceOrg(consumer_key, consumer_secret, username, password,
+    org = SalesforceOrg(consumer_key, consumer_secret, username, password,sandbox,
                         loop=loop)
 
     # loop through the list of streaming resource specifications
@@ -208,6 +209,7 @@ async def create_broker(*, name, host, exchange_specs, port=None,
     :type port: int or None
     :param str login: Username
     :param str password: Password
+    :param bool sandbox: If salesforce is a sandbox
     :param str virtualhost: AMQP virtualhost to use for this connection
     :param bool ssl: Create an SSL connection instead of a plain unencrypted \
     one
