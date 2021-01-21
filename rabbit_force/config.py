@@ -178,6 +178,7 @@ class SalesforceOrgSchema(StrictSchema):
     consumer_secret = fields.String(required=True)
     username = fields.String(required=True)
     password = fields.String(required=True)
+    sandbox = fields.Boolean(required=True)
     resources = fields.List(fields.Nested(StreamingResourceSchema()),
                             required=True,
                             validate=Length(min=1),
