@@ -10,7 +10,7 @@ from .rest_client import SalesforceRestClient
 class SalesforceOrg:
     # pylint: disable=too-many-arguments
     """Represents a Salesforce org, capable of managing streaming resources"""
-    def __init__(self, consumer_key, consumer_secret, username, password,
+    def __init__(self, consumer_key, consumer_secret, username, password,sandbox,
                  loop=None):
         """
         :param str consumer_key: Consumer key from the Salesforce connected \
@@ -19,6 +19,7 @@ class SalesforceOrg:
         connected app definition
         :param str username: Salesforce username
         :param str password: Salesforce password
+        :param bool sandbox: Salesforce if is a sandbox
         :param loop: Event :obj:`loop <asyncio.BaseEventLoop>` used to
                      schedule tasks. If *loop* is ``None`` then
                      :func:`asyncio.get_event_loop` is used to get the default
@@ -32,7 +33,8 @@ class SalesforceOrg:
             consumer_key,
             consumer_secret,
             username,
-            password
+            password,
+            sandbox
         )
         #: Dictionary of available streaming resources by name
         self.resources = {}
